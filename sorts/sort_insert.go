@@ -11,6 +11,8 @@ func SortInsert[S ~[]E, E cmp.Ordered](datum S) {
 		for j = i - 1; j >= 0 && datum[j] > key; j-- {
 			datum[j+1] = datum[j]
 		}
-		datum[j+1] = key
+		if j != i-1 {
+			datum[j+1] = key
+		}
 	}
 }

@@ -2,27 +2,27 @@ package sorts
 
 import "cmp"
 
-func SortHeapifyImpl[S ~[]E, E cmp.Ordered](datum S, n, i int) {
-	SortHeapify(datum, n, i)
+func SortHeapifyImpl[S ~[]E, E cmp.Ordered](datum S, size, index int) {
+	SortHeapify(datum, size, index)
 }
 
-func SortHeapify[S ~[]E, E cmp.Ordered](datum S, n, i int) {
-	if i >= n {
+func SortHeapify[S ~[]E, E cmp.Ordered](datum S, size, index int) {
+	if index >= size {
 		return
 	}
 
-	c1 := 2*i + 1
-	c2 := 2*i + 2
-	var m = i
-	if c1 < n && datum[c1] > datum[m] {
-		m = c1
+	c1 := 2*index + 1
+	c2 := 2*index + 2
+	var top = index
+	if c1 < size && datum[c1] > datum[top] {
+		top = c1
 	}
-	if c2 < n && datum[c2] > datum[m] {
-		m = c2
+	if c2 < size && datum[c2] > datum[top] {
+		top = c2
 	}
-	if m != i {
-		Swap(datum, m, i)
-		SortHeapifyImpl(datum, n, m)
+	if top != index {
+		Swap(datum, top, index)
+		SortHeapifyImpl(datum, size, top)
 	}
 }
 
@@ -30,8 +30,7 @@ func SortHeapify[S ~[]E, E cmp.Ordered](datum S, n, i int) {
 func SortHeap[S ~[]E, E cmp.Ordered](datum S) {
 	size := len(datum)
 	lastNode := size - 1
-	parent := (lastNode - 1) / 2
-	for i := parent; i >= 0; i-- {
+	for i := (lastNode - 1) / 2; i >= 0; i-- {
 		SortHeapify(datum, size, i)
 	}
 

@@ -12,7 +12,10 @@ func SortShell[S ~[]E, E cmp.Ordered](datum S) {
 			for ; j-gap >= 0 && tmp < datum[j-gap]; j -= gap {
 				datum[j] = datum[j-gap]
 			}
-			datum[j] = tmp
+
+			if j != i {
+				datum[j] = tmp
+			}
 		}
 	}
 }
